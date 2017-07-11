@@ -10,6 +10,6 @@ module.exports = {
   },
   source: {
     folder: source,
-    js: resolve(source, 'handle-events.js'),
+    js: resolve(source, 'main.js'),
   },
 };

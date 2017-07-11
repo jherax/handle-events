@@ -26,6 +26,7 @@
     }
   },
   "rules": {
+    "max-len": 0,
     "valid-jsdoc": [1, {
       "requireParamDescription": true,
       "requireReturnDescription": false,

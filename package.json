@@ -1,10 +1,10 @@
 {
   "name": "handle-events",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Manages events listeners in the browser",
   "author": "David Rivera <jherax@gmail.com>",
   "main": "dist/handle-events.js",
-  "module": "src/handle-events.js",
+  "module": "src/main.js",
   "keywords": [
     "event",
     "emitter",

@@ -14,8 +14,9 @@ const config = {
   output: {
     path: PATHS.dist.folder,
     filename: '[name].js',
+    umdNamedDefine: true,
     libraryTarget: 'umd',
-    library: 'evt', // global
+    library: 'evt',
   },
   module: {
     rules: [

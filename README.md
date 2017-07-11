@@ -30,10 +30,10 @@ $ yarn add handle-events
 
 ```html
 <!-- from unpkg.com -->
-<script src="https://unpkg.com/handle-events/dist/handle-events.js"></script>
+<script src="https://unpkg.com/handle-events/dist/handle-events.min.js"></script>
 
 <!-- or from rawgit.com -->
-<script src="https://cdn.rawgit.com/jherax/handle-events/1.0.0/dist/handle-events.js"></script>
+<script src="https://cdn.rawgit.com/jherax/handle-events/1.0.0/dist/handle-events.min.js"></script>
 ```
 
 In the above case, the object [`evt`](#examples) is included as
