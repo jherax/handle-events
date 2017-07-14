@@ -3,11 +3,13 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("evt", [], factory);
+		define("jsu", [], factory);
 	else if(typeof exports === 'object')
-		exports["evt"] = factory();
+		exports["jsu"] = factory();
 	else
-		root["evt"] = factory();
+		if (Object.prototype.toString.call(root["jsu"]) === "[object Object]") {
+			var p, f = factory(); for (p in f) root["jsu"][p] = f[p];
+		} else root["jsu"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache

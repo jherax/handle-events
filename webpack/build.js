@@ -16,7 +16,7 @@ const config = {
     filename: '[name].js',
     umdNamedDefine: true,
     libraryTarget: 'umd',
-    library: 'evt',
+    library: 'jsu',
   },
   module: {
     rules: [

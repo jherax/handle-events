@@ -23,7 +23,8 @@
   "homepage": "https://github.com/jherax/handle-events#readme",
   "scripts": {
     "eslint": "eslint src || true",
-    "build": "webpack --bail --config webpack/build.js"
+    "build": "webpack --bail --config webpack/build.js",
+    "postbuild": "node -e \"require('./scripts/replace')\""
   },
   "license": "ISC",
   "dependencies": {},
@@ -39,7 +40,7 @@
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-loader": "^1.8.0",
     "eslint-plugin-import": "^2.5.0",
-    "webpack": "^3.0.0"
+    "webpack": "^3.2.0"
   },
   "babel": {
     "presets": [
