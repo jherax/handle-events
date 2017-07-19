@@ -1,5 +1,5 @@
 import {attachEvent, detachEvent} from './adapter';
-import {splitEventName, getContext, match} from './utils';
+import {splitEventName, match} from './utils';
 
 /**
  * @private
@@ -50,13 +50,13 @@ export function removeEventListener(node, eventns, listener) {
   const data = NODES.find(d => d.node === node);
   if (!data) return;
   const events = event ? [event] : Object.keys(data.events);
-  const removeHandlers = (eventData) => {
+  const removeHandlers = function remove(eventData) {
     const eventType = this.toString();
     if ((!listener && !eventns) ||
-      match(event, eventType, namespace, eventData.namespace, listener) ||
-      (eventData.handler === listener && (!eventns || match(event, eventType, namespace, eventData.namespace)))) {
-      return !!detachEvent(node, eventType, eventData.handler);
-    }
+        match(event, eventType, namespace, eventData.namespace, listener) ||
+        (eventData.handler === listener &&
+          (!eventns || match(event, eventType, namespace, eventData.namespace))
+        )) return !!detachEvent(node, eventType, eventData.handler);
     return true;
   };
   events.forEach((type) => {
@@ -79,6 +79,8 @@ function getHandlers(eventData) {
   }
 }
 
+// TODO: create a method to get events from jQuery
+
 /**
  * Gets all event-handlers from a DOM element.
  * Events with namespace are allowed.
@@ -91,7 +93,11 @@ export function getEventListeners(node, eventns) {
   const [event, namespace] = splitEventName(eventns);
   // gets the events associated to a DOM node
   const data = NODES.find(d => d.node === node);
-  const context = getContext(event, namespace);
+  const context = {
+    namespace,
+    eventName: event,
+    listeners: {},
+  };
   if (!data) return context.listeners;
   if (!eventns) return data.events; // Object with all event types
   const events = event ? [event] : Object.keys(data.events);

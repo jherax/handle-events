@@ -3,7 +3,7 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("jsu", [], factory);
+		define([], factory);
 	else if(typeof exports === 'object')
 		exports["jsu"] = factory();
 	else
@@ -147,8 +147,6 @@ function addEventListener(node, eventns, listener) {
  * @param {Function} listener: (optional) event handler
  */
 function removeEventListener(node, eventns, listener) {
-  var _this = this;
-
   var _splitEventName3 = (0, _utils.splitEventName)(eventns),
       _splitEventName4 = _slicedToArray(_splitEventName3, 2),
       event = _splitEventName4[0],
@@ -161,11 +159,9 @@ function removeEventListener(node, eventns, listener) {
   });
   if (!data) return;
   var events = event ? [event] : Object.keys(data.events);
-  var removeHandlers = function removeHandlers(eventData) {
-    var eventType = _this.toString();
-    if (!listener && !eventns || (0, _utils.match)(event, eventType, namespace, eventData.namespace, listener) || eventData.handler === listener && (!eventns || (0, _utils.match)(event, eventType, namespace, eventData.namespace))) {
-      return !!(0, _adapter.detachEvent)(node, eventType, eventData.handler);
-    }
+  var removeHandlers = function remove(eventData) {
+    var eventType = this.toString();
+    if (!listener && !eventns || (0, _utils.match)(event, eventType, namespace, eventData.namespace, listener) || eventData.handler === listener && (!eventns || (0, _utils.match)(event, eventType, namespace, eventData.namespace))) return !!(0, _adapter.detachEvent)(node, eventType, eventData.handler);
     return true;
   };
   events.forEach(function (type) {
@@ -192,6 +188,8 @@ function getHandlers(eventData) {
   }
 }
 
+// TODO: create a method to get events from jQuery
+
 /**
  * Gets all event-handlers from a DOM element.
  * Events with namespace are allowed.
@@ -211,7 +209,11 @@ function getEventListeners(node, eventns) {
   var data = NODES.find(function (d) {
     return d.node === node;
   });
-  var context = (0, _utils.getContext)(event, namespace);
+  var context = {
+    namespace: namespace,
+    eventName: event,
+    listeners: {}
+  };
   if (!data) return context.listeners;
   if (!eventns) return data.events; // Object with all event types
   var events = event ? [event] : Object.keys(data.events);
@@ -341,7 +343,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.splitEventName = splitEventName;
-exports.getContext = getContext;
 exports.match = match;
 /**
  * Split the event name and the namespace
@@ -357,21 +358,6 @@ function splitEventName(eventns) {
 }
 
 /**
- * Builds the context object passed to function callbacks to be used as 'this'
- *
- * @param  {String} eventName: event name passed to the invoker function
- * @param  {String} namespace: namespace passed to the invoker function
- * @return {Object}
- */
-function getContext(eventName, namespace) {
-  return {
-    eventName: eventName,
-    namespace: namespace,
-    listeners: Object.create(null)
-  };
-}
-
-/**
  * Rules to match event handlers
  *
  * @param  {String} eventName: event name passed to the invoker function
@@ -382,7 +368,7 @@ function getContext(eventName, namespace) {
  * @return {Boolean}
  */
 function match(eventName, eventType, namespace, eventNamespace, handler) {
-  return eventName === eventType && !namespace && !handler || namespace === eventNamespace && !eventName && !handler || namespace === eventNamespace && eventName === eventType && !handler;
+  return !handler && (eventName === eventType && !namespace || namespace === eventNamespace && !eventName || namespace === eventNamespace && eventName === eventType);
 }
 
 /***/ })

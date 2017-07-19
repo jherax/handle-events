@@ -1,10 +1,12 @@
 {
   "name": "handle-events",
-  "version": "1.0.0",
+  "version": "1.0.0a",
   "description": "Manages events listeners in the browser",
   "author": "David Rivera <jherax@gmail.com>",
   "main": "dist/handle-events.js",
-  "module": "src/main.js",
+  "module": "dist/handle-events.js",
+  "browser": "dist/handle-events.min.js",
+  "unpkg": "dist/handle-events.min.js",
   "keywords": [
     "event",
     "emitter",
@@ -36,11 +38,11 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "clean-webpack-plugin": "^0.1.16",
-    "eslint": "^4.0.0",
+    "eslint": "^4.3.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-loader": "^1.8.0",
     "eslint-plugin-import": "^2.5.0",
-    "webpack": "^3.2.0"
+    "webpack": "^3.3.0"
   },
   "babel": {
     "presets": [
