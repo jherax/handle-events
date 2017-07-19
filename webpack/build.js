@@ -14,7 +14,7 @@ const config = {
   output: {
     path: PATHS.dist.folder,
     filename: '[name].js',
-    umdNamedDefine: true,
+    umdNamedDefine: false,
     libraryTarget: 'umd',
     library: 'jsu',
   },

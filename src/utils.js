@@ -12,21 +12,6 @@ export function splitEventName(eventns) {
 }
 
 /**
- * Builds the context object passed to function callbacks to be used as 'this'
- *
- * @param  {String} eventName: event name passed to the invoker function
- * @param  {String} namespace: namespace passed to the invoker function
- * @return {Object}
- */
-export function getContext(eventName, namespace) {
-  return {
-    eventName,
-    namespace,
-    listeners: Object.create(null),
-  };
-}
-
-/**
  * Rules to match event handlers
  *
  * @param  {String} eventName: event name passed to the invoker function
@@ -37,9 +22,9 @@ export function getContext(eventName, namespace) {
  * @return {Boolean}
  */
 export function match(eventName, eventType, namespace, eventNamespace, handler) {
-  return (
-    (eventName === eventType && !namespace && !handler) ||
-    (namespace === eventNamespace && !eventName && !handler) ||
-    (namespace === eventNamespace && eventName === eventType && !handler)
+  return !handler && (
+    (eventName === eventType && !namespace) ||
+    (namespace === eventNamespace && !eventName) ||
+    (namespace === eventNamespace && eventName === eventType)
   );
 }
