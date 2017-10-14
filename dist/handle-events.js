@@ -1,4 +1,4 @@
-/*! handle-events@v1.0.0. Jherax 2017. Visit https://github.com/jherax/handle-events */
+/*! handle-events@v1.0.0a. Jherax 2017. Visit https://github.com/jherax/handle-events */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -92,10 +92,11 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 exports.addEventListener = addEventListener;
 exports.removeEventListener = removeEventListener;
 exports.getEventListeners = getEventListeners;
+exports.delegate = delegate;
 
-var _adapter = __webpack_require__(3);
+var _adapter = __webpack_require__(4);
 
-var _utils = __webpack_require__(4);
+var _utils = __webpack_require__(5);
 
 /**
  * @private
@@ -109,8 +110,11 @@ var NODES = [];
  * @param {Element} node: DOM element
  * @param {String} eventns: name of the event/namespace to register
  * @param {Function} listener: event handler
+ * @param {Boolean} useCapture: Event Capture
  */
 function addEventListener(node, eventns, listener) {
+  var useCapture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
   var _splitEventName = (0, _utils.splitEventName)(eventns),
       _splitEventName2 = _slicedToArray(_splitEventName, 2),
       event = _splitEventName2[0],
@@ -132,9 +136,10 @@ function addEventListener(node, eventns, listener) {
   var eventData = Object.create(null);
   eventData.namespace = namespace;
   eventData.handler = listener;
+  eventData.useCapture = useCapture;
   // registers the event listener into the events
   data.events[event].push(eventData);
-  (0, _adapter.attachEvent)(node, event, listener);
+  (0, _adapter.attachEvent)(node, event, listener, useCapture);
 }
 
 /**
@@ -161,7 +166,7 @@ function removeEventListener(node, eventns, listener) {
   var events = event ? [event] : Object.keys(data.events);
   var removeHandlers = function remove(eventData) {
     var eventType = this.toString();
-    if (!listener && !eventns || (0, _utils.match)(event, eventType, namespace, eventData.namespace, listener) || eventData.handler === listener && (!eventns || (0, _utils.match)(event, eventType, namespace, eventData.namespace))) return !!(0, _adapter.detachEvent)(node, eventType, eventData.handler);
+    if (!listener && !eventns || (0, _utils.match)(event, eventType, namespace, eventData.namespace, listener) || eventData.handler === listener && (!eventns || (0, _utils.match)(event, eventType, namespace, eventData.namespace))) return !!(0, _adapter.detachEvent)(node, eventType, eventData.handler, eventData.useCapture);
     return true;
   };
   events.forEach(function (type) {
@@ -224,6 +229,21 @@ function getEventListeners(node, eventns) {
   return context.listeners;
 }
 
+/**
+ * @param {Element} node: DOM element
+ * @param {String} selector: CSS Selector for the event
+ * @param {String} eventns: name of the event/namespace to register
+ * @param {Function} listener: event handler
+ * @param {Boolean} useCapture: Event Capture
+ */
+function delegate(node, selector, eventns, listener, useCapture) {
+  addEventListener(node, eventns, function (e) {
+    if (e.target.matches(selector)) {
+      listener(e);
+    }
+  }, useCapture);
+}
+
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -235,7 +255,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _facade = __webpack_require__(2);
+__webpack_require__(2);
+
+var _facade = __webpack_require__(3);
 
 var _facade2 = _interopRequireDefault(_facade);
 
@@ -251,12 +273,26 @@ exports.default = {
   handleEvents: _facade2.default,
   addEventListener: evt.addEventListener,
   removeEventListener: evt.removeEventListener,
-  getEventListeners: evt.getEventListeners
+  getEventListeners: evt.getEventListeners,
+  delegate: evt.delegate
 };
 module.exports = exports['default'];
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+if (typeof Element !== 'undefined' && !Element.prototype.matches) {
+  var proto = Element.prototype;
+
+  proto.matches = proto.matchesSelector || proto.mozMatchesSelector || proto.msMatchesSelector || proto.oMatchesSelector || proto.webkitMatchesSelector;
+}
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -291,7 +327,7 @@ function handleEvents(node) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -308,10 +344,13 @@ exports.detachEvent = detachEvent;
  * @param {Element} node: DOM element
  * @param {String} eventName: name of the event to register
  * @param {Function} listener: event handler
+ * @param {Boolean} useCapture: Event Capture
  */
 function attachEvent(node, eventName, listener) {
+  var useCapture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
   if (node.addEventListener) {
-    node.addEventListener(eventName, listener, false);
+    node.addEventListener(eventName, listener, useCapture);
   } else {
     node.attachEvent("on" + eventName, listener);
   }
@@ -323,17 +362,20 @@ function attachEvent(node, eventName, listener) {
  * @param {Element} node: DOM element
  * @param {String} eventName: name of the event to register
  * @param {Function} listener: event handler
+ * @param {Boolean} useCapture: Event Capture
  */
 function detachEvent(node, eventName, listener) {
+  var useCapture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
   if (node.removeEventListener) {
-    node.removeEventListener(eventName, listener, false);
+    node.removeEventListener(eventName, listener, useCapture);
   } else {
     node.detachEvent("on" + eventName, listener);
   }
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

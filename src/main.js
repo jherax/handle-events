@@ -1,3 +1,4 @@
+import './prototypes';
 import handleEvents from './facade';
 import * as evt from './events';
 
@@ -6,4 +7,5 @@ export default {
   addEventListener: evt.addEventListener,
   removeEventListener: evt.removeEventListener,
   getEventListeners: evt.getEventListeners,
+  delegate: evt.delegate,
 };
