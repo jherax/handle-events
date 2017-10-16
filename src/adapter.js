@@ -4,11 +4,11 @@
  * @param {Element} node: DOM element
  * @param {String} eventName: name of the event to register
  * @param {Function} listener: event handler
- * @param {Boolean} useCapture: Event Capture
+ * @param {Boolean} useCapture: event capture
  */
 export function attachEvent(node, eventName, listener, useCapture = false) {
   if (node.addEventListener) {
-    node.addEventListener(eventName, listener, useCapture);
+    node.addEventListener(eventName, listener, !!useCapture);
   } else {
     node.attachEvent(`on${eventName}`, listener);
   }
@@ -20,11 +20,11 @@ export function attachEvent(node, eventName, listener, useCapture = false) {
  * @param {Element} node: DOM element
  * @param {String} eventName: name of the event to register
  * @param {Function} listener: event handler
- * @param {Boolean} useCapture: Event Capture
+ * @param {Boolean} useCapture: event capture
  */
 export function detachEvent(node, eventName, listener, useCapture = false) {
   if (node.removeEventListener) {
-    node.removeEventListener(eventName, listener, useCapture);
+    node.removeEventListener(eventName, listener, !!useCapture);
   } else {
     node.detachEvent(`on${eventName}`, listener);
   }

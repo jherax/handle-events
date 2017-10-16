@@ -1,4 +1,4 @@
-/*! handle-events@v1.0.0a. Jherax 2017. Visit https://github.com/jherax/handle-events */
+/*! handle-events@v1.1.0. Jherax 2017. Visit https://github.com/jherax/handle-events */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -110,7 +110,7 @@ var NODES = [];
  * @param {Element} node: DOM element
  * @param {String} eventns: name of the event/namespace to register
  * @param {Function} listener: event handler
- * @param {Boolean} useCapture: Event Capture
+ * @param {Boolean} useCapture: event capture
  */
 function addEventListener(node, eventns, listener) {
   var useCapture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
@@ -146,7 +146,6 @@ function addEventListener(node, eventns, listener) {
  * Removes an event-handler from a DOM element.
  * Events with namespace are allowed.
  *
- * @private
  * @param {Element} node: DOM element
  * @param {String} eventns: (optional) name of the event/namespace to remove
  * @param {Function} listener: (optional) event handler
@@ -230,13 +229,16 @@ function getEventListeners(node, eventns) {
 }
 
 /**
+ * Attaches a listener to a DOM `Element` but delegates the event-listener
+ * to the DOM Elements beneath that matches with the `selector` provided.
+ *
  * @param {Element} node: DOM element
- * @param {String} selector: CSS Selector for the event
  * @param {String} eventns: name of the event/namespace to register
+ * @param {String} selector: CSS selector for those elements that will propagate the event
  * @param {Function} listener: event handler
- * @param {Boolean} useCapture: Event Capture
+ * @param {Boolean} useCapture: event capture
  */
-function delegate(node, selector, eventns, listener, useCapture) {
+function delegate(node, eventns, selector, listener, useCapture) {
   addEventListener(node, eventns, function (e) {
     if (e.target.matches(selector)) {
       listener(e);
@@ -285,6 +287,10 @@ module.exports = exports['default'];
 "use strict";
 
 
+/**
+ * https://developer.mozilla.org/en-US/docs/Web/API/Element/matches
+ */
+
 if (typeof Element !== 'undefined' && !Element.prototype.matches) {
   var proto = Element.prototype;
 
@@ -319,7 +325,9 @@ function handleEvents(node) {
     return fluent;
   };
   fluent.on = function (eventns, listener) {
-    (0, _events.addEventListener)(node, eventns, listener);
+    var useCapture = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+    (0, _events.addEventListener)(node, eventns, listener, useCapture);
     return fluent;
   };
   return fluent;
@@ -344,13 +352,13 @@ exports.detachEvent = detachEvent;
  * @param {Element} node: DOM element
  * @param {String} eventName: name of the event to register
  * @param {Function} listener: event handler
- * @param {Boolean} useCapture: Event Capture
+ * @param {Boolean} useCapture: event capture
  */
 function attachEvent(node, eventName, listener) {
   var useCapture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
   if (node.addEventListener) {
-    node.addEventListener(eventName, listener, useCapture);
+    node.addEventListener(eventName, listener, !!useCapture);
   } else {
     node.attachEvent("on" + eventName, listener);
   }
@@ -362,13 +370,13 @@ function attachEvent(node, eventName, listener) {
  * @param {Element} node: DOM element
  * @param {String} eventName: name of the event to register
  * @param {Function} listener: event handler
- * @param {Boolean} useCapture: Event Capture
+ * @param {Boolean} useCapture: event capture
  */
 function detachEvent(node, eventName, listener) {
   var useCapture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
   if (node.removeEventListener) {
-    node.removeEventListener(eventName, listener, useCapture);
+    node.removeEventListener(eventName, listener, !!useCapture);
   } else {
     node.detachEvent("on" + eventName, listener);
   }

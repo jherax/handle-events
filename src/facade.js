@@ -13,8 +13,8 @@ export default function handleEvents(node) {
     removeEventListener(node, eventns, listener);
     return fluent;
   };
-  fluent.on = (eventns, listener) => {
-    addEventListener(node, eventns, listener);
+  fluent.on = (eventns, listener, useCapture = false) => {
+    addEventListener(node, eventns, listener, useCapture);
     return fluent;
   };
   return fluent;

@@ -1,6 +1,6 @@
 {
   "name": "handle-events",
-  "version": "1.0.0a",
+  "version": "1.1.0",
   "description": "Manages events listeners in the browser",
   "author": "David Rivera <jherax@gmail.com>",
   "main": "dist/handle-events.js",
@@ -12,7 +12,7 @@
     "emitter",
     "browser",
     "listener",
-    "handler",
+    "delegation",
     "javascript"
   ],
   "repository": {
