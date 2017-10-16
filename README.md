@@ -81,17 +81,18 @@ See an example with RequireJS here: http://jsfiddle.net/FdKTn/78/
 
 ## API
 
-- [addEventListener](#addeventlistenernode-eventns-listener)
+- [addEventListener](#addeventlistenernode-eventns-listener-usecapture)
+- [delegate](#delegatenode-selector-eventns-listener-usecapture)
 - [removeEventListener](#removeeventlistenernode-eventns-listener)
 - [getEventListeners](#geteventlistenersnode-eventns)
 - [handleEvents](#handleeventsnode)
 
-### addEventListener(node, eventns, listener)
+### addEventListener(node, eventns, listener, useCapture)
 
 **Returns `void`**
 
 ```javascript
-addEventListener(node: Element, eventns: String, listener: Function) : void
+addEventListener(node: Element, eventns: String, listener: Function, useCapture: Boolean) : void
 ```
 
 Attaches an event-handler to a DOM element. You can set a namespace to
@@ -101,6 +102,7 @@ It receives the following arguments:
 - **node** `Element`: DOM Element to which the event handler is attached
 - **eventns** `String`: name of the event.namespace to register
 - **listener** `Function`: event handler
+- **useCapture** `Function`: event capture (default false)
 
 Each event handler attached is tracked by an internal store, which keeps track
 of the event type and the namespace linked to a DOM Element. You can access
@@ -118,6 +120,25 @@ jsu.addEventListener(title, 'click', (e) => {
   console.log(`triggered ${e.type}`);
 });
 ```
+
+[&#9751; Back to API](#api)
+
+### delegate(node, selector, eventns, listener, useCapture)
+
+```javascript
+delegate(node: Element, selector: String, eventns: String, listener: function, useCapture: Boolean): voide
+```
+
+Attaches an event-handler to a Dom Element but delegates the event the selector.
+
+- **node** `Element`: DOM Element to which the event handler is attached
+- **eventns** `String`: name of the event.namespace to register
+- **selector** `String`: CSS Selector
+- **listener** `Function`: event handler
+- **useCapture** `Function`: event capture (default false)
+
+**Returns `void`**
+
 
 [&#9751; Back to API](#api)
 

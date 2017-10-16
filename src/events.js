@@ -13,8 +13,9 @@ const NODES = [];
  * @param {Element} node: DOM element
  * @param {String} eventns: name of the event/namespace to register
  * @param {Function} listener: event handler
+ * @param {Boolean} useCapture: Event Capture
  */
-export function addEventListener(node, eventns, listener) {
+export function addEventListener(node, eventns, listener, useCapture = false) {
   const [event, namespace] = splitEventName(eventns);
   if (!event) throw Error('Event name was not provided');
   // gets the events associated to a DOM node
@@ -30,9 +31,10 @@ export function addEventListener(node, eventns, listener) {
   const eventData = Object.create(null);
   eventData.namespace = namespace;
   eventData.handler = listener;
+  eventData.useCapture = useCapture;
   // registers the event listener into the events
   data.events[event].push(eventData);
-  attachEvent(node, event, listener);
+  attachEvent(node, event, listener, useCapture);
 }
 
 /**
@@ -53,10 +55,10 @@ export function removeEventListener(node, eventns, listener) {
   const removeHandlers = function remove(eventData) {
     const eventType = this.toString();
     if ((!listener && !eventns) ||
-        match(event, eventType, namespace, eventData.namespace, listener) ||
-        (eventData.handler === listener &&
-          (!eventns || match(event, eventType, namespace, eventData.namespace))
-        )) return !!detachEvent(node, eventType, eventData.handler);
+      match(event, eventType, namespace, eventData.namespace, listener) ||
+      (eventData.handler === listener &&
+        (!eventns || match(event, eventType, namespace, eventData.namespace))
+      )) return !!detachEvent(node, eventType, eventData.handler, eventData.useCapture);
     return true;
   };
   events.forEach((type) => {
@@ -106,4 +108,19 @@ export function getEventListeners(node, eventns) {
     (data.events[eventType] || []).forEach(getHandlers, context);
   });
   return context.listeners;
+}
+
+/**
+ * @param {Element} node: DOM element
+ * @param {String} selector: CSS Selector for the event
+ * @param {String} eventns: name of the event/namespace to register
+ * @param {Function} listener: event handler
+ * @param {Boolean} useCapture: Event Capture
+ */
+export function delegate(node, selector, eventns, listener, useCapture) {
+  addEventListener(node, eventns, (e) => {
+    if (e.target.matches(selector)) {
+      listener(e);
+    }
+  }, useCapture);
 }
