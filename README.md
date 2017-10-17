@@ -73,7 +73,7 @@ require(['handle-events'], function(jsu) {
 });
 ```
 
-See an example with RequireJS here: http://jsfiddle.net/FdKTn/78/
+See an example with **RequireJS** here: http://jsfiddle.net/FdKTn/78/
 
 [&#9751; Back to Index](#content)
 
@@ -300,10 +300,12 @@ which you will attach or remove event-handlers.
 
 The methods exposed are:
 
-- **on()** `Function`: facade of [addEventListener](#addeventlistenernode-eventns-listener-capture).
-  It receives the following arguments: `(eventns, listener, capture)`
 - **off()** `Function`: facade of [removeEventListener](#removeeventlistenernode-eventns-listener).
   It receives the following arguments: `(eventns, listener)`
+- **on()** `Function`: facade of [addEventListener](#addeventlistenernode-eventns-listener-capture).
+  It receives the following arguments: `(eventns, listener, capture)`
+- **delegate()** `Function`: facade of [delegate](#delegatenode-eventns-selector-listener-capture).
+  It receives the following arguments: `(eventns, selector, listener, capture)`
 
 ```javascript
 const evtHandler = (e) => console.log(`triggered ${e.type}`);
