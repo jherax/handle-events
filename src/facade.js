@@ -1,4 +1,6 @@
-import {addEventListener, removeEventListener} from './events';
+import removeEventListener from './removeEventListener';
+import addEventListener from './addEventListener';
+import delegate from './delegate';
 
 /**
  * Factory function that implements a fluent interface
@@ -13,8 +15,12 @@ export default function handleEvents(node) {
     removeEventListener(node, eventns, listener);
     return fluent;
   };
-  fluent.on = (eventns, listener, useCapture = false) => {
+  fluent.on = (eventns, listener, useCapture) => {
     addEventListener(node, eventns, listener, useCapture);
+    return fluent;
+  };
+  fluent.delegate = (eventns, selector, listener, useCapture) => {
+    delegate(node, eventns, selector, listener, useCapture);
     return fluent;
   };
   return fluent;

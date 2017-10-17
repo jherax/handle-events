@@ -34,7 +34,7 @@ $ yarn add handle-events
 <script src="https://unpkg.com/handle-events/dist/handle-events.min.js"></script>
 
 <!-- or from rawgit.com -->
-<script src="https://cdn.rawgit.com/jherax/handle-events/1.1.0/dist/handle-events.min.js"></script>
+<script src="https://cdn.rawgit.com/jherax/handle-events/1.1.1/dist/handle-events.min.js"></script>
 ```
 
 In the above case, the library will be included as global object
@@ -82,7 +82,7 @@ See an example with RequireJS here: http://jsfiddle.net/FdKTn/78/
 ## API
 
 - [addEventListener](#addeventlistenernode-eventns-listener-capture)
-- [delegate](#delegatenode-selector-eventns-listener-capture)
+- [delegate](#delegatenode-eventns-selector-listener-capture)
 - [removeEventListener](#removeeventlistenernode-eventns-listener)
 - [getEventListeners](#geteventlistenersnode-eventns)
 - [handleEvents](#handleeventsnode)
@@ -128,10 +128,10 @@ Events are executed in the order of how they're defined.
 Say, you define 4 event listeners:
 
 ```javascript
-jsu.addEventListener(document, "click", (e) => alert(1));
-jsu.addEventListener(document, "click", (e) => alert(2), true);
-jsu.addEventListener(document, "click", (e) => alert(3), false);
-jsu.addEventListener(document, "click", (e) => alert(4), true);
+jsu.addEventListener(document.body, "click.a1", (e) => alert(1));
+jsu.addEventListener(document.body, "click.a2", (e) => alert(2), true);
+jsu.addEventListener(document.body, "click.a3", (e) => alert(3), false);
+jsu.addEventListener(document.body, "click.a4", (e) => alert(4), true);
 ```
 
 The alert boxes will pop up in this order:
@@ -142,12 +142,12 @@ The alert boxes will pop up in this order:
 - `3`: second handler defined with `capture = false`
 
 For a better understanding of capture-events and event-bubbling,
-read the following link: https://stackoverflow.com/a/10654134/2247494
-and also you can see a demo here: http://jsfiddle.net/sc5Xa/198/
+read the following link: https://stackoverflow.com/a/10654134/2247494,
+also you can see a demo here: http://jsfiddle.net/sc5Xa/198/
 
 [&#9751; Back to API](#api)
 
-### delegate(node, selector, eventns, listener, capture)
+### delegate(node, eventns, selector, listener, capture)
 
 **Returns `void`**
 
@@ -170,15 +170,15 @@ setting `capture = true`, and at the end _("bubble")_ by default.
 Events are executed in the order of how they're defined.
 
 ```javascript
-jsu.delegate(document, "click.test", "h3", (e) => alert(1));
-jsu.delegate(document, "click.test", "h3", (e) => alert(2), true);
-jsu.delegate(document, "click.test", "h3", (e) => alert(3), false);
-jsu.delegate(document, "click.test", "h3", (e) => alert(4), true);
+jsu.delegate(document.body, "click.test", "h3", (e) => alert(1));
+jsu.delegate(document.body, "click.test", "h3", (e) => alert(2), true);
+jsu.delegate(document.body, "click.test", "h3", (e) => alert(3), false);
+jsu.delegate(document.body, "click.test", "h3", (e) => alert(4), true);
 ```
 
 For a better understanding of capture-events and event-bubbling,
-read the following link: https://stackoverflow.com/a/10654134/2247494
-and also you can see a demo here: http://jsfiddle.net/sc5Xa/198/
+read the following link: https://stackoverflow.com/a/10654134/2247494,
+also you can see a demo here: http://jsfiddle.net/sc5Xa/198/
 
 [&#9751; Back to API](#api)
 
@@ -255,18 +255,27 @@ is an array of objects with the event handler and the namespace.
 {
   mouseover: [ // Array(1)
     {
+      delegated: undefined,
       handler: function(e){},
-      namespace: "tooltip"
+      namespace: "tooltip",
+      selector: undefined,
+      useCapture: false,
     }
   ],
   click: [ // Array(2)
     {
+      delegated: undefined,
       handler: function(e){},
-      namespace: undefined // no namespace
+      namespace: undefined, // no namespace
+      selector: undefined,
+      useCapture: false,
     },
     {
+      delegated: undefined,
       handler: function(e){},
-      namespace: "language"
+      namespace: "language",
+      selector: undefined,
+      useCapture: false,
     }
   ]
 }
@@ -298,14 +307,13 @@ The methods exposed are:
 
 ```javascript
 const evtHandler = (e) => console.log(`triggered ${e.type}`);
-var title = document.getElementById('title');
+var code = document.getElementById('code');
 
-jsu.handleEvents(title)
+jsu.handleEvents(code)
   .off('click')
-  .on('click.language', evtHandler)
-  .off('.tooltip')
-  .on('mouseover.tooltip', evtHandler)
-  .on('mouseout.tooltip', evtHandler);
+  .off('.notify')
+  .on('mouseout.notify', evtHandler)
+  .delegate('click.code', 'pre', evtHandler);
 ```
 
 [&#9751; Back to API](#api)

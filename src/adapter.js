@@ -6,7 +6,7 @@
  * @param {Function} listener: event handler
  * @param {Boolean} useCapture: event capture
  */
-export function attachEvent(node, eventName, listener, useCapture = false) {
+export function attachEvent(node, eventName, listener, useCapture) {
   if (node.addEventListener) {
     node.addEventListener(eventName, listener, !!useCapture);
   } else {
@@ -22,7 +22,7 @@ export function attachEvent(node, eventName, listener, useCapture = false) {
  * @param {Function} listener: event handler
  * @param {Boolean} useCapture: event capture
  */
-export function detachEvent(node, eventName, listener, useCapture = false) {
+export function detachEvent(node, eventName, listener, useCapture) {
   if (node.removeEventListener) {
     node.removeEventListener(eventName, listener, !!useCapture);
   } else {
