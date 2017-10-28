@@ -1,14 +1,16 @@
-/**
- * https://developer.mozilla.org/en-US/docs/Web/API/Element/matches
- */
-
-if (typeof Element !== 'undefined' && !Element.prototype.matches) {
-  const proto = Element.prototype;
-
-  proto.matches =
-    proto.matchesSelector ||
-    proto.mozMatchesSelector ||
-    proto.msMatchesSelector ||
-    proto.oMatchesSelector ||
-    proto.webkitMatchesSelector;
+// from https://developer.mozilla.org/de/docs/Web/API/Element/closest
+if (!Element.prototype.matches) {
+  Element.prototype.matches = Element.prototype.msMatchesSelector ||
+    Element.prototype.webkitMatchesSelector;
+}
+if (!Element.prototype.closest) {
+  Element.prototype.closest = function (s) {
+    let el = this;
+    if (!document.documentElement.contains(el)) return null;
+    do {
+      if (el.matches(s)) return el;
+      el = el.parentElement;
+    } while (el !== null);
+    return null;
+  };
 }
