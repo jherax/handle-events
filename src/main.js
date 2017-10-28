@@ -1,4 +1,4 @@
-import './prototypes';
+import './polyfill';
 import handleEvents from './facade';
 import addEventListener from './addEventListener';
 import removeEventListener from './removeEventListener';
