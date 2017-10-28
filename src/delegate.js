@@ -8,7 +8,7 @@ import {addEventListenerBase} from './addEventListener';
  * @param {String} eventns: name of the event/namespace to register
  * @param {String} selector: CSS selector for those elements that will propagate the event
  * @param {Function} listener: event handler
- * @param {Boolean} useCapture: event capture
+ * @param {Boolean} [useCapture=false]: event capture
  */
 export default function delegate(node, eventns, selector, listener, useCapture) {
   addEventListenerBase(node, eventns, (e) => {

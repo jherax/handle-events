@@ -4,7 +4,7 @@
  * @param {Element} node: DOM element
  * @param {String} eventName: name of the event to register
  * @param {Function} listener: event handler
- * @param {Boolean} useCapture: event capture
+ * @param {Boolean} [useCapture=false]: event capture
  */
 export function attachEvent(node, eventName, listener, useCapture) {
   if (node.addEventListener) {
@@ -20,7 +20,7 @@ export function attachEvent(node, eventName, listener, useCapture) {
  * @param {Element} node: DOM element
  * @param {String} eventName: name of the event to register
  * @param {Function} listener: event handler
- * @param {Boolean} useCapture: event capture
+ * @param {Boolean} [useCapture=false]: event capture
  */
 export function detachEvent(node, eventName, listener, useCapture) {
   if (node.removeEventListener) {

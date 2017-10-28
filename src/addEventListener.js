@@ -44,7 +44,7 @@ export function addEventListenerBase(node, eventns, listener, useCapture = false
  * @param {Element} node: DOM element
  * @param {String} eventns: name of the event/namespace to register
  * @param {Function} listener: event handler
- * @param {Boolean} useCapture: event capture
+ * @param {Boolean} [useCapture=false]: event capture
  */
 export default function addEventListener(node, eventns, listener, useCapture) {
   addEventListenerBase(node, eventns, listener, useCapture);
