@@ -23,7 +23,7 @@ function getHandlers(eventData) {
  * Events with namespace are allowed.
  *
  * @param  {Element} node: DOM element
- * @param  {String} eventns: (optional) name of the event/namespace
+ * @param  {String} [eventns]: name of the event/namespace
  * @return {Object}
  */
 export default function getEventListeners(node, eventns) {

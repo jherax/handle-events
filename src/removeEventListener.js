@@ -7,8 +7,8 @@ import NODES from './nodes-array';
  * Events with namespace are allowed.
  *
  * @param {Element} node: DOM element
- * @param {String} eventns: (optional) name of the event/namespace to remove
- * @param {Function} listener: (optional) event handler
+ * @param {String} [eventns]: name of the event/namespace to remove
+ * @param {Function} [listener]: event handler
  */
 export default function removeEventListener(node, eventns, listener) {
   const [event, namespace] = splitEventName(eventns);
