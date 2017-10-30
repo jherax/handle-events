@@ -4,7 +4,7 @@
   "description": "Manages events listeners in the browser",
   "author": "David Rivera <jherax@gmail.com>",
   "main": "dist/handle-events.js",
-  "module": "dist/handle-events.js",
+  "module": "src/main.js",
   "browser": "dist/handle-events.min.js",
   "unpkg": "dist/handle-events.min.js",
   "keywords": [
