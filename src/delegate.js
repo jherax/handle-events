@@ -1,7 +1,6 @@
 import {addEventListenerBase} from './addEventListener';
 import {splitEventName} from './utils';
 
-
 /**
  * Finds closest match and invokes callback.
  *
@@ -11,17 +10,15 @@ import {splitEventName} from './utils';
  * @param {Function} listener: event handler
  * @return {Function}
  */
-function listenerHelper(node, eventns, selector, callback) {
-  return function helper(e) {
+function listenerHelper(node, eventns, selector, listener) {
+  return function eventHandler(e) {
     const [event] = splitEventName(eventns);
     e.delegateTarget = e.target.closest(selector, event);
-
     if (e.delegateTarget) {
-      callback.call(node, e);
+      listener.call(node, e);
     }
   };
 }
-
 
 /**
  * Attaches a listener to a DOM `Element` but delegates the event-listener
@@ -34,6 +31,6 @@ function listenerHelper(node, eventns, selector, callback) {
  * @param {Boolean} [useCapture=false]: event capture
  */
 export default function delegate(node, eventns, selector, listener, useCapture) {
-  const listnerFn = listenerHelper(node, eventns, selector, listener).bind(this);
-  addEventListenerBase(node, eventns, listnerFn, useCapture, selector);
+  const eventHandler = listenerHelper(node, eventns, selector, listener);
+  addEventListenerBase(node, eventns, eventHandler, useCapture, selector);
 }

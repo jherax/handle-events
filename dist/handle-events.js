@@ -1,4 +1,4 @@
-/*! handle-events@v1.1.1. Jherax 2017. Visit https://github.com/jherax/handle-events */
+/*! handle-events@v1.1.2. Jherax 2017. Visit https://github.com/jherax/handle-events */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -207,7 +207,7 @@ function addEventListenerBase(node, eventns, listener) {
  * @param {Element} node: DOM element
  * @param {String} eventns: name of the event/namespace to register
  * @param {Function} listener: event handler
- * @param {Boolean} useCapture: event capture
+ * @param {Boolean} [useCapture=false]: event capture
  */
 function addEventListener(node, eventns, listener, useCapture) {
   addEventListenerBase(node, eventns, listener, useCapture);
@@ -243,8 +243,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * Events with namespace are allowed.
  *
  * @param {Element} node: DOM element
- * @param {String} eventns: (optional) name of the event/namespace to remove
- * @param {Function} listener: (optional) event handler
+ * @param {String} [eventns]: name of the event/namespace to remove
+ * @param {Function} [listener]: event handler
  */
 function removeEventListener(node, eventns, listener) {
   var _splitEventName = (0, _utils.splitEventName)(eventns),
@@ -289,7 +289,7 @@ exports.detachEvent = detachEvent;
  * @param {Element} node: DOM element
  * @param {String} eventName: name of the event to register
  * @param {Function} listener: event handler
- * @param {Boolean} useCapture: event capture
+ * @param {Boolean} [useCapture=false]: event capture
  */
 function attachEvent(node, eventName, listener, useCapture) {
   if (node.addEventListener) {
@@ -305,7 +305,7 @@ function attachEvent(node, eventName, listener, useCapture) {
  * @param {Element} node: DOM element
  * @param {String} eventName: name of the event to register
  * @param {Function} listener: event handler
- * @param {Boolean} useCapture: event capture
+ * @param {Boolean} [useCapture=false]: event capture
  */
 function detachEvent(node, eventName, listener, useCapture) {
   if (node.removeEventListener) {
@@ -325,9 +325,36 @@ function detachEvent(node, eventName, listener, useCapture) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 exports.default = delegate;
 
 var _addEventListener = __webpack_require__(2);
+
+var _utils = __webpack_require__(0);
+
+/**
+ * Finds closest match and invokes callback.
+ *
+ * @param {Element} node: DOM element
+ * @param {String} eventns: name of the event/namespace to register
+ * @param {String} selector: CSS selector for those elements that will propagate the event
+ * @param {Function} listener: event handler
+ * @return {Function}
+ */
+function listenerHelper(node, eventns, selector, listener) {
+  return function eventHandler(e) {
+    var _splitEventName = (0, _utils.splitEventName)(eventns),
+        _splitEventName2 = _slicedToArray(_splitEventName, 1),
+        event = _splitEventName2[0];
+
+    e.delegateTarget = e.target.closest(selector, event);
+    if (e.delegateTarget) {
+      listener.call(node, e);
+    }
+  };
+}
 
 /**
  * Attaches a listener to a DOM `Element` but delegates the event-listener
@@ -337,14 +364,11 @@ var _addEventListener = __webpack_require__(2);
  * @param {String} eventns: name of the event/namespace to register
  * @param {String} selector: CSS selector for those elements that will propagate the event
  * @param {Function} listener: event handler
- * @param {Boolean} useCapture: event capture
+ * @param {Boolean} [useCapture=false]: event capture
  */
 function delegate(node, eventns, selector, listener, useCapture) {
-  (0, _addEventListener.addEventListenerBase)(node, eventns, function (e) {
-    if (e.target.matches(selector)) {
-      listener(e);
-    }
-  }, useCapture, selector);
+  var eventHandler = listenerHelper(node, eventns, selector, listener);
+  (0, _addEventListener.addEventListenerBase)(node, eventns, eventHandler, useCapture, selector);
 }
 module.exports = exports['default'];
 
@@ -399,14 +423,20 @@ module.exports = exports['default'];
 "use strict";
 
 
-/**
- * https://developer.mozilla.org/en-US/docs/Web/API/Element/matches
- */
-
-if (typeof Element !== 'undefined' && !Element.prototype.matches) {
-  var proto = Element.prototype;
-
-  proto.matches = proto.matchesSelector || proto.mozMatchesSelector || proto.msMatchesSelector || proto.oMatchesSelector || proto.webkitMatchesSelector;
+// from https://developer.mozilla.org/de/docs/Web/API/Element/closest
+if (!Element.prototype.matches) {
+  Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
+}
+if (!Element.prototype.closest) {
+  Element.prototype.closest = function closest(s) {
+    var el = this;
+    if (!document.documentElement.contains(el)) return null;
+    do {
+      if (el.matches(s)) return el;
+      el = el.parentElement;
+    } while (el !== null);
+    return null;
+  };
 }
 
 /***/ }),
@@ -509,7 +539,7 @@ function getHandlers(eventData) {
  * Events with namespace are allowed.
  *
  * @param  {Element} node: DOM element
- * @param  {String} eventns: (optional) name of the event/namespace
+ * @param  {String} [eventns]: name of the event/namespace
  * @return {Object}
  */
 function getEventListeners(node, eventns) {

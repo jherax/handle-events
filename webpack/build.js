@@ -49,11 +49,13 @@ const config = {
       test,
       sourceMap: true, // map error message locations to modules
       // https://github.com/mishoo/UglifyJS2#compress-options
-      compress: {
+      uglifyOptions: {
         warnings: true,
-        dead_code: true,
-        drop_debugger: true,
-        drop_console: true,
+        compress: {
+          dead_code: true,
+          drop_debugger: true,
+          drop_console: true,
+        },
       },
     }),
     new webpack.BannerPlugin({banner, raw: false, entryOnly: true}),

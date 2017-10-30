@@ -4,7 +4,7 @@ if (!Element.prototype.matches) {
     Element.prototype.webkitMatchesSelector;
 }
 if (!Element.prototype.closest) {
-  Element.prototype.closest = function (s) {
+  Element.prototype.closest = function closest(s) {
     let el = this;
     if (!document.documentElement.contains(el)) return null;
     do {

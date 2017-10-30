@@ -34,7 +34,7 @@ $ yarn add handle-events
 <script src="https://unpkg.com/handle-events/dist/handle-events.min.js"></script>
 
 <!-- or from rawgit.com -->
-<script src="https://cdn.rawgit.com/jherax/handle-events/1.1.1/dist/handle-events.min.js"></script>
+<script src="https://cdn.rawgit.com/jherax/handle-events/1.1.2/dist/handle-events.min.js"></script>
 ```
 
 In the above case, the library will be included as global object
