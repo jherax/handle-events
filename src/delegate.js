@@ -15,6 +15,8 @@ function listenerHelper(node, eventns, selector, listener) {
     const [event] = splitEventName(eventns);
     e.delegateTarget = e.target.closest(selector, event);
     if (e.delegateTarget) {
+      // TODO: shouldn't be:
+      // listener.call(e.delegateTarget, e)
       listener.call(node, e);
     }
   };
