@@ -23,8 +23,8 @@ export function splitEventName(eventns) {
  */
 export function match(eventName, eventType, namespace, eventNamespace, handler) {
   return !handler && (
-    (eventName === eventType && !namespace) ||
-    (namespace === eventNamespace && !eventName) ||
-    (namespace === eventNamespace && eventName === eventType)
+    (eventName === eventType && !namespace)
+    || (namespace === eventNamespace && !eventName)
+    || (namespace === eventNamespace && eventName === eventType)
   );
 }

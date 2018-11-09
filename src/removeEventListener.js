@@ -19,10 +19,10 @@ export default function removeEventListener(node, eventns, listener) {
   const removeHandlers = function remove(eventData) {
     const eventType = this.toString();
     if (
-      (!listener && !eventns) ||
-      (match(event, eventType, namespace, eventData.namespace, listener)) ||
-      (eventData.handler === listener &&
-        (!eventns || match(event, eventType, namespace, eventData.namespace))
+      (!listener && !eventns)
+      || (match(event, eventType, namespace, eventData.namespace, listener))
+      || (eventData.handler === listener
+        && (!eventns || match(event, eventType, namespace, eventData.namespace))
       )) return !!detachEvent(node, eventType, eventData.handler, eventData.useCapture);
     return true;
   };

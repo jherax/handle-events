@@ -14,4 +14,5 @@ module.exports = {
     folder: source,
     js: resolve(source, 'main.js'),
   },
+  libraryName: 'jsu',
 };

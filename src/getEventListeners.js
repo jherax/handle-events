@@ -15,9 +15,6 @@ function getHandlers(eventData) {
   }
 }
 
-// TODO: create a method to get events from jQuery.
-// See: https://github.com/jherax/handle-events/issues/1
-
 /**
  * Gets all event-handlers from a DOM element.
  * Events with namespace are allowed.

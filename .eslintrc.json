@@ -21,8 +21,7 @@
     "codeFrame": true,
     "ecmaVersion": 6,
     "ecmaFeatures": {
-      "impliedStrict": true,
-      "experimentalObjectRestSpread": true
+      "impliedStrict": true
     }
   },
   "rules": {
@@ -50,6 +49,7 @@
     }],
     "no-param-reassign": 0,
     "object-curly-spacing": [2, "never"],
+    "implicit-arrow-linebreak": [2, "beside"],
     "import/no-mutable-exports": 1,
     "import/prefer-default-export": 1,
     "import/no-extraneous-dependencies": [
