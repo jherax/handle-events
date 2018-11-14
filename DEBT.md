@@ -3,6 +3,20 @@
 Although this file should contains technical debt, it also can contain
 improvements or feature request.
 
+## Migrate rawgit to jsdelivr
+
+Since [RawGit](https://rawgit.com) has reached the end of its useful life,
+it is necessary to migrate to another CDN service as
+[jsDelivr](https://www.jsdelivr.com/rawgit).
+
+```text
+https://cdn.jsdelivr.net/gh/jherax/handle-events@1.1.3/dist/handle-events.min.js
+```
+
+## Add unit tests
+
+It is necessary to add unit tests to ensure code quality and predictability.
+
 ## Add a method to trigger events
 
 It would be useful to have a method to trigger events, e.g.
