@@ -199,8 +199,7 @@ function handleEvents(node) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return removeEventListener; });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 /* harmony import */ var _adapter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
 /* harmony import */ var _nodes_array__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(10);
@@ -219,7 +218,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function removeEventListener(node, eventns, listener) {
   var _splitEventName = Object(_utils__WEBPACK_IMPORTED_MODULE_2__["splitEventName"])(eventns),
-      _splitEventName2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_splitEventName, 2),
+      _splitEventName2 = Object(_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_splitEventName, 2),
       event = _splitEventName2[0],
       namespace = _splitEventName2[1]; // gets the events associated to a DOM node
 
@@ -244,34 +243,39 @@ function removeEventListener(node, eventns, listener) {
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var arrayWithHoles = __webpack_require__(5);
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _slicedToArray; });
+/* harmony import */ var _arrayWithHoles__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _iterableToArrayLimit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var _nonIterableRest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
 
-var iterableToArrayLimit = __webpack_require__(6);
 
-var nonIterableRest = __webpack_require__(7);
 
 function _slicedToArray(arr, i) {
-  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || nonIterableRest();
+  return Object(_arrayWithHoles__WEBPACK_IMPORTED_MODULE_0__["default"])(arr) || Object(_iterableToArrayLimit__WEBPACK_IMPORTED_MODULE_1__["default"])(arr, i) || Object(_nonIterableRest__WEBPACK_IMPORTED_MODULE_2__["default"])();
 }
-
-module.exports = _slicedToArray;
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _arrayWithHoles; });
 function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
 }
 
-module.exports = _arrayWithHoles;
-
 /***/ }),
 /* 6 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _iterableToArrayLimit; });
 function _iterableToArrayLimit(arr, i) {
   var _arr = [];
   var _n = true;
@@ -298,17 +302,16 @@ function _iterableToArrayLimit(arr, i) {
   return _arr;
 }
 
-module.exports = _iterableToArrayLimit;
-
 /***/ }),
 /* 7 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _nonIterableRest; });
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance");
 }
-
-module.exports = _nonIterableRest;
 
 /***/ }),
 /* 8 */
@@ -402,8 +405,7 @@ var NODES = [];
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEventListenerBase", function() { return addEventListenerBase; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return addEventListener; });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 /* harmony import */ var _adapter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
 /* harmony import */ var _nodes_array__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(10);
@@ -428,7 +430,7 @@ function addEventListenerBase(node, eventns, listener) {
   var selector = arguments.length > 4 ? arguments[4] : undefined;
 
   var _splitEventName = Object(_utils__WEBPACK_IMPORTED_MODULE_2__["splitEventName"])(eventns),
-      _splitEventName2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_splitEventName, 2),
+      _splitEventName2 = Object(_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_splitEventName, 2),
       event = _splitEventName2[0],
       namespace = _splitEventName2[1];
 
@@ -479,8 +481,7 @@ function addEventListener(node, eventns, listener, useCapture) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return delegate; });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 /* harmony import */ var _addEventListener__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
 
@@ -499,7 +500,7 @@ __webpack_require__.r(__webpack_exports__);
 function listenerHelper(node, eventns, selector, listener) {
   return function eventHandler(e) {
     var _splitEventName = Object(_utils__WEBPACK_IMPORTED_MODULE_2__["splitEventName"])(eventns),
-        _splitEventName2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_splitEventName, 1),
+        _splitEventName2 = Object(_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_splitEventName, 1),
         event = _splitEventName2[0];
 
     e.delegateTarget = e.target.closest(selector, event);
@@ -535,8 +536,7 @@ function delegate(node, eventns, selector, listener, useCapture) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return getEventListeners; });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
 /* harmony import */ var _nodes_array__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10);
 
@@ -572,7 +572,7 @@ function getHandlers(eventData) {
 
 function getEventListeners(node, eventns) {
   var _splitEventName = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["splitEventName"])(eventns),
-      _splitEventName2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_splitEventName, 2),
+      _splitEventName2 = Object(_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_splitEventName, 2),
       event = _splitEventName2[0],
       namespace = _splitEventName2[1]; // gets the events associated to a DOM node
 

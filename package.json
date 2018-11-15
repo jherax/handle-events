@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/jherax/handle-events#readme",
   "scripts": {
-    "eslint": "eslint src || true",
+    "eslint": "eslint",
     "eslint:fix": "eslint --fix src/",
     "build": "webpack --bail --config webpack/build.js",
     "postbuild": "node -e \"require('./scripts/replace')\"",
