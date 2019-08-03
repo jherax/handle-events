@@ -1,5 +1,5 @@
-import {splitEventName, match} from './utils';
 import NODES from './nodes-array';
+import { match, splitEventName } from './utils';
 
 /**
  * Gets the `eventData` objects matching the criteria
@@ -8,7 +8,7 @@ import NODES from './nodes-array';
  * @param {Object} eventData: the event data associated to the event registered
  */
 function getHandlers(eventData) {
-  const {eventName, eventType, namespace, listeners} = this;
+  const { eventName, eventType, namespace, listeners } = this;
   if (match(eventName, eventType, namespace, eventData.namespace)) {
     listeners[eventType] = listeners[eventType] || [];
     listeners[eventType].push(eventData);
@@ -35,7 +35,7 @@ export default function getEventListeners(node, eventns) {
   if (!data) return context.listeners;
   if (!eventns) return data.events; // Object with all event types
   const events = event ? [event] : Object.keys(data.events);
-  events.forEach((eventType) => {
+  events.forEach(eventType => {
     context.eventType = eventType;
     (data.events[eventType] || []).forEach(getHandlers, context);
   });

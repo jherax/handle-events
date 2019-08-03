@@ -1,0 +1,21 @@
+## AUTO-DETECT
+# Handle line endings automatically for files detected as
+# text and leave all files detected as binary untouched.
+# This will handle all files NOT defined below.
+* text=auto
+
+## https://github.com/alexkaratarakis/gitattributes/blob/master/Web.gitattributes
+# These files are text and should be normalized (Convert crlf => lf)
+*.gitattributes   text
+*.bash            text eol=lf
+*.sh              text eol=lf
+*.bat             text eol=crlf
+*.cmd             text eol=crlf
+*.sql             text
+*.lock            text -diff
+package-lock.json text -diff
+*.png             binary
+*.gif             binary
+*.jpg             binary
+*.jpeg            binary
+*.ico             binary

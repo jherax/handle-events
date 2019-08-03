@@ -1,5 +1,5 @@
-import {addEventListenerBase} from './addEventListener';
-import {splitEventName} from './utils';
+import { addEventListenerBase } from './addEventListener';
+import { splitEventName } from './utils';
 
 /**
  * Finds closest match and invokes callback.
@@ -7,7 +7,7 @@ import {splitEventName} from './utils';
  * @param {Element} node: DOM element
  * @param {String} eventns: name of the event/namespace to register
  * @param {String} selector: CSS selector for those elements that will propagate the event
- * @param {Function} listener: event handler
+ * @param {Function} listener: event listener callback
  * @return {Function}
  */
 function listenerHelper(node, eventns, selector, listener) {
@@ -29,7 +29,7 @@ function listenerHelper(node, eventns, selector, listener) {
  * @param {Element} node: DOM element
  * @param {String} eventns: name of the event/namespace to register
  * @param {String} selector: CSS selector for those elements that will propagate the event
- * @param {Function} listener: event handler
+ * @param {Function} listener: event listener callback
  * @param {Boolean} [useCapture=false]: event capture
  */
 export default function delegate(node, eventns, selector, listener, useCapture) {

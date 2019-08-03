@@ -31,10 +31,10 @@ $ yarn add handle-events
 
 ```html
 <!-- from unpkg.com -->
-<script src="https://unpkg.com/handle-events/dist/handle-events.min.js"></script>
+<script src="https://unpkg.com/handle-events/dist/handle-events.js"></script>
 
 <!-- or from rawgit.com -->
-<script src="https://cdn.jsdelivr.net/gh/jherax/handle-events@1.1.3/dist/handle-events.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/jherax/handle-events@1.1.3/dist/handle-events.js"></script>
 ```
 
 In the above case, the library will be included as global object
@@ -65,8 +65,8 @@ import jsu from 'handle-events';
 requirejs.config({
   paths: {
     // remove the extension .js
-    'handle-events': '<PATH>/handle-events.min'
-  }
+    'handle-events': '<PATH>/handle-events',
+  },
 });
 require(['handle-events'], function(jsu) {
   console.log(jsu);
@@ -95,28 +95,28 @@ See an example with **RequireJS** here: http://jsfiddle.net/FdKTn/78/
 addEventListener(node: Element, eventns: String, listener: Function, capture: Boolean) : void
 ```
 
-Attaches an event-handler to a DOM element. You can set a namespace to
+Attaches an event-listener to a DOM element. You can set a namespace to
 the event by appending a dot `.` to the event name.
 It receives the following arguments:
 
-- **node** `Element`: DOM Element to which the event handler is attached
+- **node** `Element`: DOM Element to which the event listener is attached
 - **eventns** `String`: name of the event (with .namespace) to register
 - **listener** `Function`: the function which receives the event notification
 - **capture** `Boolean`: if the event is activated at the beginning _(default `false`)_
 
-Each event handler attached is tracked by an internal store, which keeps track
+Each event listener attached is tracked by an internal store, which keeps track
 of the event type and the namespace linked to a DOM Element. You can access
 that store through the API [getEventListeners](#geteventlistenersnode-eventns).
 
 ```javascript
 var title = document.getElementById('title');
 
-// add a named event handler with namespace (recommended)
-const onMouseOver = (e) => console.log(`triggered ${e.type}.tooltip`);
+// add a named event listener with namespace (recommended)
+const onMouseOver = e => console.log(`triggered ${e.type}.tooltip`);
 jsu.addEventListener(title, 'mouseover.tooltip', onMouseOver);
 
-// add an anonymous event handler (without namespace)
-jsu.addEventListener(title, 'click', (e) => {
+// add an anonymous event listener (without namespace)
+jsu.addEventListener(title, 'click', e => {
   console.log(`triggered ${e.type}`);
 });
 ```
@@ -128,10 +128,10 @@ Events are executed in the order of how they're defined.
 Say, you define 4 event listeners:
 
 ```javascript
-jsu.addEventListener(document.body, "click.a1", (e) => alert(1));
-jsu.addEventListener(document.body, "click.a2", (e) => alert(2), true);
-jsu.addEventListener(document.body, "click.a3", (e) => alert(3), false);
-jsu.addEventListener(document.body, "click.a4", (e) => alert(4), true);
+jsu.addEventListener(document.body, 'click.a1', e => alert(1));
+jsu.addEventListener(document.body, 'click.a2', e => alert(2), true);
+jsu.addEventListener(document.body, 'click.a3', e => alert(3), false);
+jsu.addEventListener(document.body, 'click.a4', e => alert(4), true);
 ```
 
 The alert boxes will pop up in this order:
@@ -159,7 +159,7 @@ Attaches a listener to a DOM `Element` but delegates the event-listener
 to the DOM Elements beneath that matches with the `selector` provided.
 It receives the following arguments:
 
-- **node** `Element`: DOM Element to which the event handler is attached
+- **node** `Element`: DOM Element to which the event listener is attached
 - **eventns** `String`: name of the event (with .namespace) to register
 - **selector** `String`: CSS selector for those elements that will propagate the event
 - **listener** `Function`: the function which receives the event notification
@@ -170,10 +170,10 @@ setting `capture = true`, and at the end _("bubble")_ by default.
 Events are executed in the order of how they're defined.
 
 ```javascript
-jsu.delegate(document.body, "click.test", "h3", (e) => alert(1));
-jsu.delegate(document.body, "click.test", "h3", (e) => alert(2), true);
-jsu.delegate(document.body, "click.test", "h3", (e) => alert(3), false);
-jsu.delegate(document.body, "click.test", "h3", (e) => alert(4), true);
+jsu.delegate(document.body, 'click.test', 'h3', e => alert(1));
+jsu.delegate(document.body, 'click.test', 'h3', e => alert(2), true);
+jsu.delegate(document.body, 'click.test', 'h3', e => alert(3), false);
+jsu.delegate(document.body, 'click.test', 'h3', e => alert(4), true);
 ```
 
 For a better understanding of capture-events and event-bubbling,
@@ -192,17 +192,17 @@ removeEventListener(node: Element, eventns: String) : void
 removeEventListener(node: Element) : void
 ```
 
-Removes an event-handler from a DOM element. You can set a namespace to
+Removes an event-listener from a DOM element. You can set a namespace to
 the event by appending a dot `.` to the event name, or even you can pass
 only a namespace that will match with all event types.
 
 It receives the following arguments:
 
-- **node** `Element`: DOM element where the event handler is removed.
+- **node** `Element`: DOM element where the event listener is removed.
 - **eventns** `String`: _(optional)_ name of the event (with .namespace) to remove
 - **listener** `Function`: _(optional)_ the function which receives the event notification
 
-Each event handler attached by
+Each event listener attached by
 [addEventListener](#addeventlistenernode-eventns-listener-capture) is tracked
 by an internal store, which keeps track of the event type and the namespace
 linked to a DOM Element. You can access that store through the API
@@ -229,7 +229,7 @@ getEventListeners(node: Element, eventns: String) : Object
 getEventListeners(node: Element) : Object
 ```
 
-Gets all event-handlers from a DOM element. Each event handler attached by
+Gets all event-listeners from a DOM element. Each event listener attached by
 [addEventListener](#addeventlistenernode-eventns-listener-capture) is tracked
 by an internal store, which keeps track of the event type and the namespace
 linked to a DOM Element.
@@ -308,10 +308,11 @@ The methods exposed are:
   It receives the following arguments: `(eventns, selector, listener, capture)`
 
 ```javascript
-const evtHandler = (e) => console.log(`triggered ${e.type}`);
+const evtHandler = e => console.log(`triggered ${e.type}`);
 var code = document.getElementById('code');
 
-jsu.handleEvents(code)
+jsu
+  .handleEvents(code)
   .off('click')
   .off('.notify')
   .on('mouseout.notify', evtHandler)
@@ -351,7 +352,7 @@ or any other 3rd party libraries used in a repository. See [LICENSE](LICENSE) fi
 
 <!-- LINKS -->
 
-[UMD]: http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/
-[CommonJS]: https://blog.risingstack.com/node-js-at-scale-module-system-commonjs-require/
-[ES2015 Imports]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
-[AMD RequireJS]: http://requirejs.org/docs/api.html#jsfiles
+[umd]: http://davidbcalhoun.com/2014/what-is-amd-commonjs-and-umd/
+[commonjs]: https://blog.risingstack.com/node-js-at-scale-module-system-commonjs-require/
+[es2015 imports]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
+[amd requirejs]: http://requirejs.org/docs/api.html#jsfiles

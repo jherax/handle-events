@@ -1,15 +1,15 @@
-import {attachEvent} from './adapter';
-import {splitEventName} from './utils';
+import { attachEvent } from './adapter';
 import NODES from './nodes-array';
+import { splitEventName } from './utils';
 
 /**
- * Attaches an event-handler to a DOM element.
+ * Attaches an event-listener to a DOM element.
  * Events with namespace are allowed.
  * Event delegation is allowed.
  *
  * @param {Element} node: DOM element
  * @param {String} eventns: name of the event/namespace to register
- * @param {Function} listener: event handler
+ * @param {Function} listener: event listener callback
  * @param {Boolean} useCapture: event capture
  * @param {String} selector: CSS selector to the element delegated
  */
@@ -38,12 +38,12 @@ export function addEventListenerBase(node, eventns, listener, useCapture = false
 }
 
 /**
- * Attaches an event-handler to a DOM element.
+ * Attaches an event-listener to a DOM element.
  * Events with namespace are allowed.
  *
  * @param {Element} node: DOM element
  * @param {String} eventns: name of the event/namespace to register
- * @param {Function} listener: event handler
+ * @param {Function} listener: event listener callback
  * @param {Boolean} [useCapture=false]: event capture
  */
 export default function addEventListener(node, eventns, listener, useCapture) {

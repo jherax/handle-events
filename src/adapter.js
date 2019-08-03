@@ -1,9 +1,9 @@
 /**
- * Attaches an event-handler to a DOM element.
+ * Attaches an event-listener to a DOM element.
  *
  * @param {Element} node: DOM element
  * @param {String} eventName: name of the event to register
- * @param {Function} listener: event handler
+ * @param {Function} listener: event listener callback
  * @param {Boolean} [useCapture=false]: event capture
  */
 export function attachEvent(node, eventName, listener, useCapture) {
@@ -15,11 +15,11 @@ export function attachEvent(node, eventName, listener, useCapture) {
 }
 
 /**
- * Removes an event-handler from a DOM element.
+ * Removes an event-listener from a DOM element.
  *
  * @param {Element} node: DOM element
  * @param {String} eventName: name of the event to register
- * @param {Function} listener: event handler
+ * @param {Function} listener: event listener callback
  * @param {Boolean} [useCapture=false]: event capture
  */
 export function detachEvent(node, eventName, listener, useCapture) {

@@ -1,13 +1,10 @@
 const fs = require('fs');
 const chalk = require('chalk');
 const promiseify = require('./promiseify');
-const {
-  getReplacementsForFile,
-  getReplacementsForMinified,
-} = require('./replacements');
+const { getReplacementsForFile, getReplacementsForMinified } = require('./replacements');
 const PATH = require('../webpack/paths');
 
-const {log} = console;
+const { log } = console;
 const readFile = promiseify(fs.readFile);
 const writeFile = promiseify(fs.writeFile);
 
@@ -24,13 +21,15 @@ const BASE_PATH = /.+[\\/](.+[\\/].+)$/;
 function replace(path, oldText, newText) {
   const rpath = path.replace(BASE_PATH, '$1');
   return readFile(path, 'utf8')
-    .then((data) => {
+    .then(data => {
       const message = `Text not found in ${rpath}`;
       const replacement = data.replace(oldText, newText);
-      if (replacement === data) return {path, message, oldText};
-      return {path, replacement};
+      if (replacement === data) return { path, message, oldText };
+      return { path, replacement };
     })
-    .catch(() => { throw Error(`Can't read ${rpath}`); });
+    .catch(() => {
+      throw Error(`Can't read ${rpath}`);
+    });
 }
 
 /**
@@ -44,7 +43,9 @@ function write(path, replacement) {
   const rpath = path.replace(BASE_PATH, '$1');
   return writeFile(path, replacement, 'utf8')
     .then(() => chalk.green(`Replacement OK in ${rpath}`))
-    .catch(() => { throw Error(`Can't update ${rpath}`); });
+    .catch(() => {
+      throw Error(`Can't update ${rpath}`);
+    });
 }
 
 const onFail = error => log(chalk.red(error));
@@ -57,11 +58,6 @@ const rm = getReplacementsForMinified();
 
 replace(PATH.dist.js, rf.oldValue, rf.newValue)
   .then(d => (d.replacement ? d : replace(PATH.dist.js, rm.oldValue, rm.newValue)))
-  .then(onSuccessRead)
-  .then(onSuccessWrite)
-  .catch(onFail);
-
-replace(PATH.dist.min, rm.oldValue, rm.newValue)
   .then(onSuccessRead)
   .then(onSuccessWrite)
   .catch(onFail);

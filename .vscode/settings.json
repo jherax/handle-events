@@ -1,0 +1,39 @@
+{
+  "files.autoSave": "off",
+  "editor.formatOnSave": true,
+  "eslint.autoFixOnSave": true,
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  },
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.trimAutoWhitespace": true,
+  "editor.renderWhitespace": "boundary",
+  "editor.renderIndentGuides": true,
+  "eslint.options": {
+    "extensions": [".js", ".jsx"]
+  },
+  "eslint.validate": ["javascript", "typescript"],
+  "javascript.suggestionActions.enabled": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "npm-intellisense.scanDevDependencies": true,
+  "telemetry.enableTelemetry": false,
+  "files.watcherExclude": {
+    "**/*.snap": true,
+    "**/.git/objects/**": true,
+    "**/node_modules/**": true,
+    "/.cache/": true,
+    "/dist": true
+  },
+  "search.exclude": {
+    "**/*.snap": true,
+    "**/node_modules/**": true,
+    "/.cache/": true,
+    "/dist": true
+  }
+}

@@ -10,7 +10,7 @@ it is necessary to migrate to another CDN service as
 [jsDelivr](https://www.jsdelivr.com/rawgit).
 
 ```text
-https://cdn.jsdelivr.net/gh/jherax/handle-events@1.1.3/dist/handle-events.min.js
+https://cdn.jsdelivr.net/gh/jherax/handle-events@1.1.3/dist/handle-events.js
 ```
 
 ## Add unit tests
@@ -39,10 +39,8 @@ addSources('jQuery', function($) {
     // return the cache object from internal API
     node,
     events: {
-      click: [
-        { handler, namespace, useCapture, selector, delegated, source },
-      ],
-    }
+      click: [{ handler, namespace, useCapture, selector, delegated, source }],
+    },
   };
 });
 ```

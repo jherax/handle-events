@@ -1,6 +1,6 @@
-import removeEventListener from './removeEventListener';
 import addEventListener from './addEventListener';
 import delegate from './delegate';
+import removeEventListener from './removeEventListener';
 
 /**
  * Factory function that implements a fluent interface

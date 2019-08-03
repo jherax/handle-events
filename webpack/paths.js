@@ -1,4 +1,4 @@
-const {resolve} = require('path');
+const { resolve } = require('path');
 
 const dist = resolve(__dirname, '../dist');
 const source = resolve(__dirname, '../src');
@@ -8,7 +8,6 @@ module.exports = {
   dist: {
     folder: dist,
     js: resolve(dist, 'handle-events.js'),
-    min: resolve(dist, 'handle-events.min.js'),
   },
   source: {
     folder: source,
