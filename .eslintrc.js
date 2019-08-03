@@ -33,7 +33,7 @@ module.exports = {
         requireReturnDescription: false,
         requireReturnType: true,
         requireReturn: false,
-        prefer: { returns: 'return' },
+        prefer: { return: 'returns' },
       },
     ],
     'require-jsdoc': [

@@ -46,13 +46,13 @@ module.exports = (env = 'none') => {
     },
     optimization: {
       minimizer: [
-        // https://webpack.js.org/plugins/uglifyjs-webpack-plugin/
+        // https://cutt.ly/uglifyjs-webpack
         new UglifyJsPlugin({
           test: /\.js($|\?)/i,
           parallel: true,
           // cache: true,
           uglifyOptions: {
-            // https://github.com/mishoo/UglifyJS2#compress-options
+            // https://cutt.ly/uglifyjs2
             compress: {
               dead_code: true,
               drop_debugger: true,

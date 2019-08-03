@@ -1,6 +1,5 @@
 /**
- * @see
- * https://developer.mozilla.org/de/docs/Web/API/Element/closest
+ * @see https://cutt.ly/mdn-element-closest
  */
 if (!Element.prototype.matches) {
   Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;

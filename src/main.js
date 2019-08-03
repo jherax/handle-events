@@ -1,8 +1,9 @@
 import './polyfill';
-import handleEvents from './facade';
+import handleEvents from './fluent-facade';
 import addEventListener from './addEventListener';
 import removeEventListener from './removeEventListener';
 import getEventListeners from './getEventListeners';
+import dispatchEvent from './dispatchEvent';
 import delegate from './delegate';
 
 export default {
@@ -10,5 +11,6 @@ export default {
   addEventListener,
   removeEventListener,
   getEventListeners,
+  dispatchEvent,
   delegate,
 };
